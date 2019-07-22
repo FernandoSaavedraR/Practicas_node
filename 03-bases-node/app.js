@@ -1,38 +1,12 @@
-const argv = require("yargs")
-  .command("listar", "Imprime en consola la tabla de multiplicar", {
-    base: {
-      demand: true,
-      alias: "b"
-    },
-    limite: {
-      alias: "l",
-      default: 10
-    }
-  })
-  .command("crear", "Crea una tabla de multiplicar", {
-    base: {
-      demand: true,
-      alias: "b"
-    },
-    limite: {
-      alias: "l",
-      default: 10
-    }
-  })
-  .command("borrar", "borra una tabla de multiplicar", {
-    base: {
-      demand: true,
-      alias: "b"
-    }
-  })
-  .help().argv;
+
+const {argv} = require('./config/yargs')
+const colors = require('colors')
 const {
   crearArchivo,
   leerArchivo,
   appendArchivo,
   BorrarArchivo
 } = require("./multiplicar/multplicar");
-
 // console.log(process.argv);
 // let parametro = argv[2];
 // let base = parametro.split("=")[1];
@@ -43,11 +17,14 @@ switch (command) {
   case "listar":
     leerArchivo(base, limite)
       .then(data => {
-        console.group("Data");
-        for (element of data.data) console.log(element);
+        console.group(`================Tabla del ${base}================`.green);
+        for (element of data.data) 
+        {
+          console.log(element.green);
+        }
         console.groupEnd();
-        if (data.msg) console.group("Warning");
-        console.log(data.msg);
+        if (data.msg) console.group("==================Warning==================".red);
+        console.log(data.msg.red);
         console.groupEnd();
       })
       .catch(err => {
@@ -58,13 +35,13 @@ switch (command) {
   case "crear":
     crearArchivo(base, limite)
       .then(archivo => {
-        console.log(`se ha creado el archivo ${archivo}`);
+        console.log(`se ha creado el archivo ${colors.green(archivo)}`);
       })
       .catch(err => console.log(err));
     break;
   case "borrar":
     BorrarArchivo(base).then((msg)=>{
-        console.log(msg);
+        console.log(msg.red);
     }).catch(err=>console.log(err))
     break;
   default:

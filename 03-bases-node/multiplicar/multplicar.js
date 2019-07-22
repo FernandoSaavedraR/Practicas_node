@@ -1,5 +1,6 @@
 //requires
 const fs = require("fs");
+
 //paquete que no son nativos
 //const fs = requiere('express')
 //archivos propios
@@ -34,8 +35,11 @@ let leerArchivo = (base, limite) => {
         let msg = "";
         if (limite > data.length) {
           msg = "hay menos elementos de los que solicitó";
+          resolve({ data: data, msg });
+        }else{
+          resolve({ data: data.slice(0,limite), msg });
         }
-        resolve({ data, msg });
+        
       }
     });
   });
