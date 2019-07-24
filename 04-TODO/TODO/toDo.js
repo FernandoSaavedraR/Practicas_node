@@ -10,7 +10,7 @@ const cargarDB = () => {
 
 const guardarDB = () => {
   return new Promise((resolve, reject) => {
-    data = JSON.stringify(listadoPorHacer,null,'\t');
+    data = JSON.stringify(listadoPorHacer, null, "\t");
     fs.writeFile(`./DB/data.json`, data, err => {
       if (err) reject(err);
       else {
@@ -39,21 +39,42 @@ const Actualizar = (descripcion, completado) => {
   let mensaje = "";
   if (elemento) {
     elemento.completado = completado;
-    mensaje = `${descripcion} se ha actualizado a ${completado}`
+    mensaje = `${descripcion} se ha actualizado a ${completado}`;
     guardarDB();
-  }else{
-    mensaje = `No se ha encontrado la tarea ${descripcion}`
+  } else {
+    mensaje = `No se ha encontrado la tarea ${descripcion}`;
   }
-  return mensaje
+  return mensaje;
+};
+const borrar = descripcion => {
+  cargarDB();
+  let elemento;
+  let index = listadoPorHacer.findIndex(tarea => tarea.descripcion === descripcion)
+  elemento = listadoPorHacer[index]
+ 
+  listadoPorHacer.splice(index,1)
+  guardarDB()
+  if(elemento)
+    return true
+  else
+    return false
 };
 
-const getListado = () => {
+
+const getListado = (completado) => {
   cargarDB();
-  return listadoPorHacer;
+  if(completado){
+    let array2 = listadoPorHacer.filter(elemento => elemento.completado === true)
+    return array2
+  }else{
+    return listadoPorHacer;
+
+  }
 };
 
 module.exports = {
   crear,
   getListado,
-  Actualizar
+  Actualizar,
+  borrar
 };

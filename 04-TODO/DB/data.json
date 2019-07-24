@@ -1,18 +1,14 @@
 [
 	{
-		"descripcion": "Salir a pasear",
+		"descripcion": "Amar a mi hunny",
+		"completado": true
+	},
+	{
+		"descripcion": "Ser un trapito",
 		"completado": false
 	},
 	{
-		"descripcion": "Pasear al Perro",
-		"completado": "true"
-	},
-	{
-		"descripcion": "Salir a comer",
-		"completado": false
-	},
-	{
-		"descripcion": "Vestirse de Trapito",
-		"completado": false
+		"descripcion": "Jugar lolsito",
+		"completado": true
 	}
 ]

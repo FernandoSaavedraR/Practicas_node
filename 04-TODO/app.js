@@ -13,7 +13,7 @@ switch (comando) {
     break;
   case "Listar":
       
-    let listado = porHacer.getListado();
+    let listado = porHacer.getListado(argv.completado);
     for (let tarea of listado) {
       console.log("=======por hacer=======".green);
       console.log(tarea.descripcion);
@@ -24,6 +24,14 @@ switch (comando) {
   case "Actualizar":
     console.log(porHacer.Actualizar(argv.descripcion,argv.completado))
     break;
+  case 'Borrar':
+    let borrado = porHacer.borrar(argv.descripcion)
+      if(borrado){
+        console.log('Se ha borrado la tarea');
+      }else{
+        console.log('No se encontró la tarea');
+      }
+    break
   default:
     console.log("comando no reconocido");
     break;
